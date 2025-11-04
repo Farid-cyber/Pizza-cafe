@@ -1,0 +1,16 @@
+@mixin media ($size) {
+    @media (max-width:$size) {
+        @content;
+    }
+}
+
+.d-flex {
+    width: 25%;
+    @include media(800px) {
+        width: 50%;
+    }
+
+    @include media(400px) {
+        width: 75%;
+    }
+}

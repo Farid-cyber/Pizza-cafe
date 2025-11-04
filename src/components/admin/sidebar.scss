@@ -1,0 +1,46 @@
+// .sidebar{
+
+
+@mixin media ($size) {
+    @media (max-width:$size) {
+        @content;
+    }
+}
+
+.sidebar {
+    width: 100%;
+    height: 100%;
+    // background-color: black;
+    margin-left: -387px;
+    // position: absolute;
+    // border-right: 1px solid;
+    transition: all ease-in-out 1000ms;
+    padding: 0 30px 0 30px;
+
+    @include media(570px) {
+        width: 200px;
+        position: absolute;
+        // width: 200%;
+    }
+
+}
+
+.sidebar2 {
+    width: 100%;
+    height: 100%;
+    // background-color: black;
+    // margin-left: -400px;
+    // position: absolute;
+    // border: 1px solid black;
+    padding: 0 30px 0 30px;
+    transition: all ease-in-out 1000ms;
+
+    @include media(570px) {
+        width: 200px!important;
+        position: absolute;
+        // width: 200%;
+        background: white;
+    }
+}
+
+// }

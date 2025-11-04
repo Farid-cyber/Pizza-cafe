@@ -1,0 +1,61 @@
+@mixin media ($size) {
+    @media (max-width:$size) {
+        @content;
+    }
+}
+
+.cat-btn {
+    padding: 13px 35px 13px 35px;
+    border-radius: 30px;
+    background-color: rgba(40, 40, 40, 1);
+    color: white;
+    font-size: 16px;
+    font-weight: 700;
+
+    @include media(450px) {
+        padding: 6px 25px 6px 25px;
+        border-radius: 10px;
+        font-size: 8px;
+        font-weight: 500;
+    }
+}
+
+.cat-btn2 {
+    padding: 13px 35px 13px 35px;
+    border-radius: 30px;
+    background-color: rgba(249, 249, 249, 1);
+    color: rgba(44, 44, 44, 1);
+    font-size: 16px;
+    font-weight: 700;
+
+    @include media(450px) {
+        padding: 6px 25px 6px 25px;
+        border-radius: 10px;
+        font-size: 8px;
+        font-weight: 500;
+    }
+}
+
+.categories {
+    padding: 50px;
+
+    @include media(450px) {
+        padding: 22px;
+    }
+}
+
+.categories::-webkit-scrollbar {
+    width: 0;
+    /* for vertical scrollbar */
+    height: 0;
+    /* for horizontal scrollbar */
+}
+
+h1 {
+    font-size: 32px;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 1);
+    margin-top: 20px;
+    margin-left: 45px;
+}
+

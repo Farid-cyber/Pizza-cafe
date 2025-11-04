@@ -1,0 +1,11 @@
+@mixin media ($size) {
+    @media (max-width:$size) {
+        @content;
+    }
+}
+
+.side {
+    @include media(570px) {
+        position: relative;
+    }
+}
