@@ -9,8 +9,9 @@ import { getForm, reset } from "../../redux/slices/ordersSlice";
 import "./homeBuy.scss";
 import "rodal/lib/rodal.css";
 import Rodal from "rodal";
-import { ToastContainer, toast } from "react-toastify";
+// import { ToastContainer, toast } from "react-toastify";
 import { useAddOrderMutation } from "../../redux/api/orderApi";
+import toast, { Toaster } from "react-hot-toast";
 
 const Buyurtma = () => {
   const { orderForm } = useAppSelector((state) => state.orders);
@@ -33,6 +34,7 @@ const Buyurtma = () => {
     pros[index].quantity++;
     setPros([...pros]);
     localStorage.setItem("orders", JSON.stringify(pros));
+    toast.success("вы успешно увеличили количество");
   };
 
   const decreaseQuantity = (id: number) => {
@@ -43,6 +45,7 @@ const Buyurtma = () => {
     }
     setPros([...pros]);
     localStorage.setItem("orders", JSON.stringify(pros));
+    toast.success("вы успешно уменьшили количество");
   };
 
   // const [addOrder] = useAddOrderMutation();
@@ -54,7 +57,7 @@ const Buyurtma = () => {
       orderForm.location === "" ||
       orderForm.phonenumber === ""
     ) {
-      toast.warning("заполните форму полностью!");
+      toast.error("заполните форму полностью!");
       return;
     }
     try {
@@ -71,6 +74,7 @@ const Buyurtma = () => {
     } catch (e) {
       console.error("Error adding document: ", e);
     }
+    toast.success("Вы успешно отправили заказ");
     dispatch(reset());
     localStorage.removeItem("orders");
     setPros([]);
@@ -99,6 +103,7 @@ const Buyurtma = () => {
   const deleteAll = () => {
     localStorage.removeItem("orders");
     setPros([]);
+    toast.success("вы успешно удалили");
   };
 
   const deleteOne = (id: number) => {
@@ -109,6 +114,7 @@ const Buyurtma = () => {
     setPros(life);
     localStorage.setItem("orders", JSON.stringify(life));
     fetch();
+    toast.success("вы успешно удалили");
   };
 
   // const [sizes, setSizes] = useState<[]>([]);
@@ -259,7 +265,7 @@ const Buyurtma = () => {
           </>
         )}
       </div>
-      <ToastContainer />
+      <Toaster />
     </div>
   );
 };
