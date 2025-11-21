@@ -7,6 +7,8 @@ import { FaUsers } from "react-icons/fa";
 import { CiLogout } from "react-icons/ci";
 // import { FiAlignJustify } from "react-icons/fi";
 import "./sidebar.scss";
+import { signOut } from "firebase/auth";
+import { auth } from "../../firebase.auth/firebase.con.auth";
 type InitialProps = {
   visibility: boolean;
 };
@@ -41,13 +43,28 @@ const Sidebar = ({ visibility }: InitialProps) => {
     },
   ];
 
+
   const handleLogOut = () => {
+    // console.log(auth);
+    signOut(auth)
+      .then(() => {
+        console.log("// Sign-out successful.");
+        navigate("/signUp");
+        // setFF(false);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     localStorage.removeItem("token");
-    navigate("/sign-in");
+    navigate("/signup");
   };
 
   return (
-    <div className={`${visibility ? "sidebar2 h-vh! w-100" : "sidebar h-vh! w-100"}`}>
+    <div
+      className={`${
+        visibility ? "sidebar2 h-vh! w-100" : "sidebar h-vh! w-100"
+      }`}
+    >
       <div className="py-2 d-flex flex-column w-100">
         {adminroutes.map((route) => (
           <div

@@ -136,20 +136,8 @@
     //     }
     // }
 
-    .order1 {
-        color: rgba(0, 0, 0, 1);
-        font-weight: 700;
 
-        div {
-            h5 {
-                margin-left: 40px;
 
-                @include media(680px) {
-                    margin-left: 10px;
-                }
-            }
-        }
-    }
 
     h3 {
         font-size: 22px;
@@ -218,4 +206,90 @@
         // width: 100%;
     }
 
+}
+
+.order-array-wrapper {
+    max-width: 821px;
+    width: 100%;
+    min-height: 111px;
+
+    .order-itself {
+        min-height: 110px;
+        padding-top: 30px;
+        border-top: 2px solid rgba(244, 244, 244, 1);
+        margin-top: 30px;
+        display: flex;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        // border: 1px solid;
+        gap: 20px;
+
+        .image-wrapper {
+            max-width: 350px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            // border: 1px solid;
+
+            img {
+                width: 120px;
+            }
+
+            .inside-image-wrapper {
+                max-width: 270px;
+
+                h6 {
+                    color: rgba(0, 0, 0, 1);
+                    font-size: 22px;
+                    font-weight: 700;
+                    line-height: 100%;
+                }
+
+                p {
+                    color: rgba(141, 141, 141, 1);
+                    font-size: 18px;
+                    font-weight: 400;
+                    line-height: 100%;
+                    margin-bottom: 3px;
+                }
+            }
+        }
+
+        .right-side {
+            max-width: 350px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            // border: 1px solid;
+
+            .left-right-side {
+                width: 100px;
+                height: 32px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+
+                p {
+                    color: rgba(0, 0, 0, 1);
+                    font-size: 22px;
+                    line-height: 100%;
+                    font-weight: 700;
+                    margin-top: 9px;
+                }
+            }
+
+            .middle-right-side {
+                font-size: 22px;
+                font-weight: 700;
+                line-height: 100%;
+                color: rgba(0, 0, 0, 1);
+                margin-top: 2px;
+            }
+
+            // .right-right-side
+        }
+    }
 }

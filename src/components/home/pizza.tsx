@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import "./pizza.scss";
 import type { Product } from "../../types";
 import { useAppSelector } from "../../redux/hooks";
+// import { ToastContainer } from "react-toastify";
+import toast, { Toaster } from "react-hot-toast";
 type InitialProps = {
   pizza: Product;
   handleOrders: (val: Product) => void;
@@ -12,20 +14,18 @@ const Pizza = ({ handleOrders, pizza }: InitialProps) => {
   // const [prize, setPrize] = useState(0);
   const [price, setPrice] = useState(Number(pizza.price));
 
+  useEffect(() => {
+    setPrice(Number(pizza.price));
+    setSize(0);
+    setType(0);
+  }, [pizza]);
+
   const handleSize = (value: number) => {
-    // console.log(value);
-    // console.log(s);
     setSize(value);
     const basePrice = Number(pizza.price);
-    // console.log(basePrice);
-    if (value === 0) {
-      setPrice(basePrice);
-    } else if (value === 1) {
-      setPrice(basePrice + 50);
-      // console.log(price);
-    } else if (value === 2) {
-      setPrice(basePrice + 100);
-    }
+    if (value === 0) setPrice(basePrice);
+    else if (value === 1) setPrice(basePrice + 50);
+    else if (value === 2) setPrice(basePrice + 100);
   };
 
   const [type, setType] = useState(0);
@@ -34,7 +34,6 @@ const Pizza = ({ handleOrders, pizza }: InitialProps) => {
     setType(index);
   };
   // console.log(pizza);
-  
 
   const { orders } = useAppSelector((state) => state.products);
 
@@ -45,12 +44,17 @@ const Pizza = ({ handleOrders, pizza }: InitialProps) => {
       sizes: [pizza.sizes[size]],
       types: [pizza.types[type]],
     });
+    toast.success("вы успешно добавляете товар в корзину");
   };
+
+  // useEffect(() => {}, [price, size, pizza]);
 
   return (
     <div className="card1 mt-3">
-      <img src={pizza.imageUrl} alt="" />
-      <h2>{pizza.title}</h2>
+      <div className="image-wrapper">
+        <img src={pizza.imageUrl} alt="" />
+      </div>
+      <h2 className="line-clamp-1">{pizza.title}</h2>
       <div className="types-sizes">
         <div className="d-flex w-100 p-1">
           {pizza.types?.map((piz, index) => (
@@ -60,7 +64,7 @@ const Pizza = ({ handleOrders, pizza }: InitialProps) => {
                 type === index ? "selected2" : "selected "
               } mx-1 w-100`}
             >
-              {piz === '1' ? "традиционный" : "Тонкий"}
+              {piz === "1" ? "традиционный" : "Тонкий"}
             </button>
           ))}
         </div>
@@ -77,7 +81,7 @@ const Pizza = ({ handleOrders, pizza }: InitialProps) => {
           ))}
         </div>
       </div>
-      <div className="d-flex w-100 p-2 justify-content-between align-items-center mt-2">
+      <div className="www d-flex w-100 p-2 justify-content-between align-items-center mt-2">
         <h3>ot {price} ₽</h3>
         <button
           onClick={() => getOrder(pizza)}
@@ -89,6 +93,9 @@ const Pizza = ({ handleOrders, pizza }: InitialProps) => {
         >
           + добавить заказ{" "}
         </button>
+      </div>
+      <div>
+        <Toaster position="top-right" reverseOrder={false} />
       </div>
     </div>
   );

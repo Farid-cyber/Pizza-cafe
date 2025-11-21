@@ -4,12 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../../redux/hooks";
 import { getForm, reset } from "../../redux/slices/ordersSlice";
 // import { useAddOrderMutation } from "../../redux/api/orderApi";
-import { addDoc, collection } from "firebase/firestore";
-import { db } from "../../firbase/firebase.con";
+// import { addDoc, collection } from "firebase/firestore";
+// import { db } from "../../firbase/firebase.con";
 import "./homeBuy.scss";
 import "rodal/lib/rodal.css";
 import Rodal from "rodal";
 import { ToastContainer, toast } from "react-toastify";
+import { useAddOrderMutation } from "../../redux/api/orderApi";
 
 const Buyurtma = () => {
   const { orderForm } = useAppSelector((state) => state.orders);
@@ -45,7 +46,7 @@ const Buyurtma = () => {
   };
 
   // const [addOrder] = useAddOrderMutation();
-
+  const [addOrder] = useAddOrderMutation();
   const handleSave = async () => {
     // addOrder({ ...orderForm, orders: pros });
     if (
@@ -57,7 +58,12 @@ const Buyurtma = () => {
       return;
     }
     try {
-      await addDoc(collection(db, "orders"), {
+      // await addDoc(collection(db, "orders"), {
+      //   ...orderForm,
+      //   orders: pros,
+      //   status: false,
+      // });
+      addOrder({
         ...orderForm,
         orders: pros,
         status: false,
@@ -145,73 +151,41 @@ const Buyurtma = () => {
                 <img onClick={deleteAll} src="./Group 44.svg" alt="" />
               </div>
             </div>
-            {pros.map((c) => (
-              // <div className="ordercha d-flex gap-1">
-              //   <div className="d-flex gap-2 align-items-center cn">
-              //     <img src={c.imageUrl} alt="" />
-              //     <h5>{c.title}</h5>
-              //   </div>
-              //   <div className="ml-2">
-              //     {c.sizes?.map((c) => (
-              //       <div className="d-flex align-items-center gap-2">
-              //         <h5>{c} см</h5>
-              //       </div>
-              //     ))}
-              //   </div>
-              //   <div className="l1 d-flex align-items-center">
-              //     <div className="quantity d-flex gap-2">
-              //       <img
-              //         onClick={() => decreaseQuantity(c.id)}
-              //         src="/Group 35.svg"
-              //         alt=""
-              //       />
-              //       <p>{c.quantity}</p>
-              //       <img
-              //         onClick={() => increaseQuantity(c.id)}
-              //         src="/Group 36.svg"
-              //         alt=""
-              //       />
-              //     </div>
-              //     <h6>{c.price}₽</h6>
-              //   </div>
-              //   <img
-              //     onClick={() => deleteOne(c.id)}
-              //     className="img"
-              //     src="/Group 36 (1).svg"
-              //     alt=""
-              //   />
-              // </div>
-              <div className="order1 d-flex flex-wrap justify-between! align-items-center w-100 pt-4">
-                <img src={c.imageUrl} alt="" width={100} />
-                <h4>{c.title}</h4>
-                {c.sizes?.map((c) => (
-                  <div className="d-flex align-items-center gap-2 w-[100px]! mt-2">
-                    <h5>{c} см</h5>
+            <div className="order-array-wrapper">
+              {pros.map((c) => (
+                <div className="order-itself">
+                  <div className="image-wrapper">
+                    <img src={`${c.imageUrl}`} alt="" />
+                    <div className="inside-image-wrapper">
+                      <h6>{c.title}</h6>
+                      <p>тонкое тесто, {c.sizes}см.</p>
+                    </div>
                   </div>
-                ))}
-                <div className="w-[100px]! d-flex gap-2 align-items-center">
-                  {/* {" "} */}
-                  <img
-                    onClick={() => decreaseQuantity(c.id)}
-                    src="/Group 35.svg"
-                    alt=""
-                  />
-                  <p className="mt-3">{c.quantity}</p>
-                  <img
-                    onClick={() => increaseQuantity(c.id)}
-                    src="/Group 36.svg"
-                    alt=""
-                  />
+                  <div className="right-side">
+                    <div className="left-right-side">
+                      <img
+                        onClick={() => decreaseQuantity(c.id)}
+                        src="./Group 35 (1).svg"
+                        alt=""
+                      />
+                      <p>{c.quantity}</p>
+                      <img
+                        onClick={() => increaseQuantity(c.id)}
+                        src="./Group 36.svg"
+                        alt=""
+                      />
+                    </div>
+                    <h3 className="middle-right-side">{c.price}₽</h3>
+                    <img
+                      onClick={() => deleteOne(c.id)}
+                      className="right-right-side"
+                      src="./Group 36 (1).svg"
+                      alt=""
+                    />
+                  </div>
                 </div>
-                <h6 className="mt-1 ml-2">{c.price}₽</h6>
-                <img
-                  onClick={() => deleteOne(c.id)}
-                  className="img"
-                  src="/Group 36 (1).svg"
-                  alt=""
-                />
-              </div>
-            ))}
+              ))}
+            </div>
             <div className="lll d-flex w-100 justify-content-between align-items-center">
               <h3>
                 Всего пицц: <span>{pros.length} шт.</span>
@@ -232,13 +206,11 @@ const Buyurtma = () => {
               <Rodal
                 visible={open}
                 onClose={() => setOpen(false)}
-                customStyles={{ height: "max-content" }}
+                customStyles={{ height: "max-content", width: "350px" }}
               >
-                <div className="card mt-4">
-                  <div className="card-header bg-dark text-white text-center">
-                    Order
-                  </div>
-                  <div className="card-body">
+                <div className=" mt-4">
+                  <div className=" text-center">Order</div>
+                  <div className="">
                     <input
                       value={orderForm.name}
                       onChange={(e) =>
@@ -273,8 +245,11 @@ const Buyurtma = () => {
                       placeholder="phonenumber..."
                     />
                   </div>
-                  <div className="card-footer bg-dark">
-                    <button onClick={handleSave} className="btn btn-primary">
+                  <div className="mt-2">
+                    <button
+                      onClick={handleSave}
+                      className="btn btn-primary w-100"
+                    >
                       Set order
                     </button>
                   </div>

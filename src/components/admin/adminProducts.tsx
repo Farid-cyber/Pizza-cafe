@@ -56,6 +56,14 @@ const AdminProducts = () => {
   const { data: categories } = useGetCategoriesQuery({});
 
   // console.log(products);
+  function randomRating(length: number = 1): number {
+    const chars = `12345`;
+    let id = 0;
+    for (let index = 0; index < length; index++) {
+      id += Number(chars.charAt(Math.floor(Math.random() * chars.length)));
+    }
+    return id;
+  }
 
   const handleSave = () => {
     // const numericSizes = sizes
@@ -70,6 +78,7 @@ const AdminProducts = () => {
         sizes: sizes,
         types: types,
         id: Date.now().toString(),
+        rating: randomRating(),
       });
     } else {
       editUser({ ...productForm, sizes: sizes, types: types, id: editingId });
