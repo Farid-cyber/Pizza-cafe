@@ -89,8 +89,8 @@ const Header = () => {
             <button onClick={handleRE} className="life ppp">
               <p className="l li1">{calculateTotal()}₽</p>
               <p className="l lol">|</p>
-              <div className="d-flex align-items-center gap-1">
-                <img src="/iconfinder_shopping-cart_2561279 1.svg" alt="" />{" "}
+              <div className=" d-flex align-items-center gap-1">
+                <img className="lllll" src="/iconfinder_shopping-cart_2561279 1.svg" alt="" />{" "}
                 <p className="mt-3 llll">{orders.length}</p>
               </div>
             </button>

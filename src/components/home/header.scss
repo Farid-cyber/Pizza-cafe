@@ -39,6 +39,12 @@
 
 }
 
+.lllll{
+    @include media(450px) {
+        width: 12px;
+    }
+}
+
 .buttons{
     display: flex;
     gap: 16px;
