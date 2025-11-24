@@ -110,78 +110,80 @@ const AdminDelivered = () => {
         </tbody>
       </table> */}
 
-      {orders
-        .filter((c: Order2) => c.status === true)
-        ?.map((c: Order2) => (
-          <div className="w-75 mx-auto flex flex-wrap items-center justify-content-between gap-y-4 py-6 border my-2 p-2 rounded">
-            <dl className="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1 mr-2">
-              <dt className="text-base font-medium text-gray-500 dark:text-gray-400">
-                Order ID:
-              </dt>
-              <dd className="mt-1.5 text-base font-semibold text-gray-900 dark:text-white">
-                <a href="#" className="hover:underline">
-                  #{c.id}
-                </a>
-              </dd>
-            </dl>
-
-            <dl className="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
-              <dt className="text-base font-medium text-gray-500 dark:text-gray-400">
-                Customer name:
-              </dt>
-              <dd className="mt-1.5 text-base font-semibold text-gray-900 dark:text-white">
-                {c.name}
-              </dd>
-            </dl>
-
-            <dl className="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
-              <dt className="text-base font-medium text-gray-500 dark:text-gray-400">
-                Location:
-              </dt>
-              <dd className="mt-1.5 text-base font-semibold text-gray-900 dark:text-white">
-                {c.location}
-              </dd>
-            </dl>
-
-            <dl className="w-1/2 sm:w-1/4 lg:w-auto lg:flex-1">
-              <dt className="text-base font-medium text-gray-500 dark:text-gray-400">
-                Phonenumber:
-              </dt>
-              <dd className="mt-1.5 text-base font-semibold text-gray-900 dark:text-white">
-                {c.phonenumber}
-              </dd>
-            </dl>
-
-            <div className="w-full grid sm:grid-cols-2 lg:flex lg:w-64 lg:items-center lg:justify-end gap-4 ml-2">
-              <button
-                onClick={() => deleteOrder(c.id)}
-                type="button"
-                className="w-full rounded border border-red-700 px-3 py-2 text-center text-sm font-medium text-red-700 hover:bg-red-700 hover:text-white focus:outline-none focus:ring-4 focus:ring-red-300 dark:border-red-500 dark:text-red-500 dark:hover:bg-red-600 dark:hover:text-white dark:focus:ring-red-900 lg:w-auto"
-              >
-                Cancel order
-              </button>
-              {c.status ? (
-                <button className="btn btn-success mt-2 w-100">
-                  Delivered
-                </button>
-              ) : (
-                <button
-                  // onClick={() => handleStatus(c.id)}
-                  className="btn btn-outline-danger mt-2 w-100"
-                >
-                  New
-                </button>
-              )}
-              <a
-                onClick={() => seeOrders(c.id)}
-                href="#"
-                className="w-full inline-flex justify-center rounded-lg  border border-gray-200 bg-white px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:outline-none focus:ring-4 focus:ring-gray-100 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white dark:focus:ring-gray-700 lg:w-auto"
-              >
-                View details
-              </a>
-            </div>
-          </div>
-        ))}
+      <div className="overflow-x-auto bg-neutral-primary-soft shadow-xs rounded m-4 border border-default">
+        <table className="w-full overflow-x-auto text-sm text-left rtl:text-right text-body">
+          <thead className="text-sm text-body bg-neutral-secondary-soft border-b rounded-base border-default">
+            <tr>
+              <th scope="col" className="px-6 py-3 font-medium">
+                Name
+              </th>
+              <th scope="col" className="px-6 py-3 font-medium">
+                Location
+              </th>
+              <th scope="col" className="px-6 py-3 font-medium">
+                Pnonenumber
+              </th>
+              <th scope="col" className="px-6 py-3 font-medium">
+                Details
+              </th>
+              <th scope="col" className="px-6 py-3 font-medium">
+                Status
+              </th>
+              <th scope="col" className="px-6 py-3 font-medium">
+                Action
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {orders
+              .filter((c: Order2) => c.status === true)
+              .map((c: Order2) => (
+                <tr className="bg-neutral-primary border-b border-default">
+                  <th
+                    scope="row"
+                    className="px-6 py-4 font-medium text-heading whitespace-nowrap"
+                  >
+                    {c.name}
+                  </th>
+                  <td className="px-6 py-4">{c.phonenumber}</td>
+                  <td className="px-6 py-4">{c.location}</td>
+                  <td className="px-6 py-4">
+                    {" "}
+                    <div
+                      onClick={() => seeOrders(c.id)}
+                      className="border cursor-pointer rounded p-2 bg-blue-600 text-white flex items-center justify-center"
+                    >
+                      Show orders
+                    </div>
+                  </td>
+                  <td className="px-6 py-4">
+                    {c.status === false ? (
+                      <div
+                        // onClick={() => handleStatus(c)}
+                        className=" cursor-pointer border rounded p-2 bg-red-600 text-white flex items-center justify-center"
+                      >
+                        New order
+                      </div>
+                    ) : (
+                      <div className="cursor-pointer border rounded p-2 bg-green-600 text-white flex items-center justify-center">
+                        Delivered
+                      </div>
+                    )}
+                  </td>
+                  <td className="px-6 py-4">
+                    <button
+                      onClick={() => deleteOrder(c.id)}
+                      className=" cursor-pointer border rounded p-2 bg-red-600
+                    text-white flex items-center justify-center"
+                    >
+                      Delete Order
+                    </button>
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+      </div>
       <Rodal
         visible={open}
         onClose={() => {

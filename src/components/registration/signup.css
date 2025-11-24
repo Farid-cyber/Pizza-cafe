@@ -1,0 +1,13 @@
+.d-flex {
+  width: 25%;
+}
+@media (max-width: 800px) {
+  .d-flex {
+    width: 50%;
+  }
+}
+@media (max-width: 400px) {
+  .d-flex {
+    width: 75%;
+  }
+}/*# sourceMappingURL=signup.css.map */

@@ -210,12 +210,15 @@ const Buyurtma = () => {
             </div>
             <div>
               <Rodal
+                className="rodal111 flex flex-col"
                 visible={open}
                 onClose={() => setOpen(false)}
                 customStyles={{ height: "max-content", width: "350px" }}
               >
                 <div className=" mt-4">
-                  <div className=" text-center">Order</div>
+                  <div className="text-center text-black">
+                    <h2>Order</h2>
+                  </div>
                   <div className="">
                     <input
                       value={orderForm.name}

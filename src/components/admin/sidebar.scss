@@ -35,6 +35,14 @@
     padding: 0 30px 0 30px;
     transition: all ease-in-out 1000ms;
 
+    @include media(960px) {
+        // width: 200px!important;
+        width: 400px!important;
+        position: absolute;
+        // width: 200%;
+        background: white;
+    }
+
     @include media(570px) {
         width: 200px!important;
         position: absolute;
